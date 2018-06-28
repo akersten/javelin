@@ -16,22 +16,44 @@ them to run out of face-up cards.
 * Taking turns and starting with the player who dealt, each player performs
   one of the following actions during their turn:
     * Guess an opponent's face-down card
-    * Eliminate an opponent's face-up card
-    * Exchange a face-up card of their own
+    * Attack an opponent's face-up card
+    * Replace a face-up card of their own
     * Forfeit (not recommended)
 * At the end of a turn, if either of the below conditions are true for a
   player, that player loses the round and players proceed to scoring:
-    * All of their previously face-down cards are now face-up
+    * All of their cards are face-up
     * None of their cards are face-up
 
 ### Guessing Cards
+A face-up card may be used to guess one of the other player's face-down cards.
+Players select a guessing card (one of their own face-up cards) and a target
+card (one of the opponent's face-down cards) and announce either "higher" or
+"lower" to attempt to reveal the face-down card.
 
+If the target card is "higher" or "lower" than the guessing card, the guess
+is successful. A card with the same value as another is neither "higher" nor
+"lower" than it.
 
-### Eliminating Cards
+After a successful guess, the guessing card is turned sideways. Sideways cards
+may not be used to guess. The opponent's face-down card is then turned face-up.
 
+### Attacking Cards
+A face-up card may be used to attack one of the other player's face-up cards if
+the attacking card is of equal or greater face value than the target. The target
+card is discarded from play.
 
-### Exchanging Card
+The attacking card is turned sideways for the remainder of the round. Sideways
+cards may not be used to attack, but may themselves be attacked.
 
+### Replacing Cards
+A player may choose to discard one of their face-up cards and replace it with
+a freshly-drawn card from the deck.
+
+When a card is replaced, it retains its orientation (i.e. a replaced sideways
+card will remain sideways).
 
 ## Scoring
+(Todo)
 
+## Minor Points
+* Aces are low
