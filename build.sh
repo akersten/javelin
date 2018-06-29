@@ -31,6 +31,10 @@ echo "  Copying dependencies..."
 
 rsync -av src/deps/ bin/
 
+echo "  Rename dependencies..."
+
+mv bin/js/jquery-* bin/js/jquery.min.js
+
 echo "  Copying markup..."
 
 rsync -av src/html/ bin/
