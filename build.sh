@@ -25,7 +25,7 @@ then
     mkdir -p bin/js
 fi
 
-tsc
+./node_modules/typescript/bin/tsc
 
 echo "  Copying dependencies..."
 
