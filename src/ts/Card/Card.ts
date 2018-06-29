@@ -17,4 +17,6 @@ export class Card {
     public getRank(): Rank {
         return this._rank;
     }
+
+    
 }

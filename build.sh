@@ -39,8 +39,8 @@ echo "  Copying markup..."
 
 rsync -a src/html/ bin/
 
-#echo "  Bundling scripts..."
-#browserify static/js/bin/base.js -o static/js/bin/base.bundled.js
+echo "  Bundling scripts..."
+browserify bin/js/javelin.js -o bin/js/javelin.bundle.js
 #for f in $(find static/js/bin/react-apps/ -name '*.js'); do echo "    $f"; browserify $f -o ${f%.*}.bundled.js; done
 
 echo "-----------------------------------------------------------------------------------"

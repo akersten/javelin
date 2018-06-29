@@ -15,4 +15,12 @@ export class Deck {
     public getCards(): Card[] {
         return this._cards;
     }
+
+    public toString(): string {
+        let ret:string = "";
+        for (let card of this._cards) {
+            ret += card.getRank() + ":" + card.getSuit() + "\n";
+        }
+        return ret;
+    }
 }
