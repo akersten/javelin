@@ -29,7 +29,7 @@ tsc
 
 echo "  Copying dependencies..."
 
-rsync -av src/deps/ bin/
+rsync -a src/deps/ bin/
 
 echo "  Rename dependencies..."
 
@@ -37,7 +37,7 @@ mv bin/js/jquery-* bin/js/jquery.min.js
 
 echo "  Copying markup..."
 
-rsync -av src/html/ bin/
+rsync -a src/html/ bin/
 
 #echo "  Bundling scripts..."
 #browserify static/js/bin/base.js -o static/js/bin/base.bundled.js
