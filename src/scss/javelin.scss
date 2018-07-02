@@ -4,3 +4,30 @@
 
   background-color: #eeffee;
 }
+
+html {
+  font-size: 16pt;
+}
+
+.hand {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.hand + .hand {
+  margin-top: 10rem;
+}
+
+#opponentCards {
+  flex-direction: row-reverse;
+}
+
+.card {
+  min-width: 4rem;
+  background-color: white;
+  flex-basis: 12.5%;
+}
+
+.card.red {
+  color: red;
+}

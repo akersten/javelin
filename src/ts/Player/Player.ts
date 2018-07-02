@@ -12,6 +12,11 @@ export class Player {
         return this.__hand
     }
 
+    public set hand(value: Hand) {
+        this.__hand = value;
+    }
+
+
     constructor() {
         this.__hand = new Hand();
     }

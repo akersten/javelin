@@ -23,16 +23,26 @@ export class Game {
 
 
     private updateView() {
-        $("#playerCards").empty();
-        $("#opponentCards").empty();
+        let $playerCards = $("#playerCards");
+        let $opponentCards = $("#opponentCards");
 
-        for (let card of this.gameState.player.hand.cards) {
-            $("#playerCards").add(MarkupGenerator.emitCardMarkup(card));
+        $playerCards.empty();
+        $opponentCards.empty();
+
+        let $playerCardsBuilder = $();
+        let $opponentCardsBuilder = $();
+
+        for (let card of this.__gameState.opponent.hand.cards) {
+            $opponentCardsBuilder = $opponentCardsBuilder.add(MarkupGenerator.emitCardMarkup(card));
         }
 
-        for (let card of this.gameState.opponent.hand.cards) {
-            $("opponentCards").add(MarkupGenerator.emitCardMarkup(card));
+        for (let card of this.__gameState.player.hand.cards) {
+            $playerCardsBuilder = $playerCardsBuilder.add(MarkupGenerator.emitCardMarkup(card));
         }
+
+        $playerCards.append($playerCardsBuilder);
+        $opponentCards.append($opponentCardsBuilder);
+
 
         // TODO: reset event listeners
     }

@@ -2,6 +2,7 @@ import {ActionFrameType, IActionFramePayload} from "./ActionFrame";
 import {Card} from "../Card/Card";
 import {Player} from "../Player/Player";
 import {GameState} from "./GameState";
+import {Hand} from "../Player/Hand";
 
 /**
  * Action representing the start of the game.
@@ -30,6 +31,11 @@ export class GameStartLocalAction implements IActionFramePayload {
 
 
     public mutate(state: GameState): GameState {
+        state.deck.shuffle();
+
+        state.player.hand = Hand.generateHand(state.deck, 16);
+        state.opponent.hand = Hand.generateHand(state.deck, 16);
+
         return state;
     }
 
