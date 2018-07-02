@@ -1,5 +1,6 @@
 import {ActionFrame, ActionFrameType} from "./ActionFrame";
 import {GameState} from "./GameState";
+import {MarkupGenerator} from "../Markup/MarkupGenerator";
 
 export class Game {
     /**
@@ -22,7 +23,18 @@ export class Game {
 
 
     private updateView() {
+        $("#playerCards").empty();
+        $("#opponentCards").empty();
 
+        for (let card of this.gameState.player.hand.cards) {
+            $("#playerCards").add(MarkupGenerator.emitCardMarkup(card));
+        }
+
+        for (let card of this.gameState.opponent.hand.cards) {
+            $("opponentCards").add(MarkupGenerator.emitCardMarkup(card));
+        }
+
+        // TODO: reset event listeners
     }
 
 
