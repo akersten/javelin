@@ -21,6 +21,11 @@ export class Game {
     }
 
 
+    private updateView() {
+
+    }
+
+
     /**
      * Consumes an ActionFrame and mutates the game state based on the content of the ActionFrame.
      * @param {ActionFrame} frame
@@ -28,6 +33,9 @@ export class Game {
     public pushAction(frame: ActionFrame): void {
         this.__actionStack.push(frame);
         this.__gameState = frame.payload.mutate(this.__gameState);
+
+        //TODO: Once we have a renderer, we won't need this.
+        this.updateView();
     }
 
     /**
@@ -42,5 +50,8 @@ export class Game {
 
         this.__gameState = frame.payload.unmutate(this.__gameState);
         this.__actionStack.pop();
+
+        // TODO: Once we have a renderer, we won't need this.
+        this.updateView()
     }
 }
