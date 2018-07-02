@@ -19,5 +19,5 @@ export function getNumericRank(rank: Rank) : number {
 }
 
 export function getNumericRankFromCard(card :Card) : number {
-    return getNumericRank(card.getRank());
+    return getNumericRank(card.rank);
 }

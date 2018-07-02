@@ -2,24 +2,24 @@ import {Card} from "../Card/Card";
 
 export class Deck {
 
-    private _cards: Card[];
+    private __cards: Card[];
 
     constructor() {
-        this._cards = [];
+        this.__cards = [];
     }
 
     public addCard(card: Card): void {
-        this._cards.push(card);
+        this.__cards.push(card);
     }
 
     public getCards(): Card[] {
-        return this._cards;
+        return this.__cards;
     }
 
     public toString(): string {
-        let ret:string = "";
-        for (let card of this._cards) {
-            ret += card.getRank() + ":" + card.getSuit() + "\n";
+        let ret: string = "";
+        for (let card of this.__cards) {
+            ret += card.rank + ":" + card.suit + "\n";
         }
         return ret;
     }

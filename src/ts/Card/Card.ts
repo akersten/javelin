@@ -2,21 +2,35 @@ import {Rank, Suit} from "./CardEnums";
 
 export class Card {
 
-    private _suit: Suit;
-    private _rank: Rank;
+    private __suit: Suit;
+    private __rank: Rank;
 
-    constructor(suit: Suit, rank: Rank) {
-        this._suit = suit;
-        this._rank = rank;
+    private __isVisible: boolean;
+
+
+    public get suit(): Suit {
+        return this.__suit;
     }
 
-    public getSuit(): Suit {
-        return this._suit;
+    public get rank(): Rank {
+        return this.__rank;
     }
 
-    public getRank(): Rank {
-        return this._rank;
+    public get isVisible(): boolean {
+        return this.__isVisible;
     }
 
-    
+    constructor(suit: Suit, rank: Rank, isVisible: boolean = true) {
+        this.__suit = suit;
+        this.__rank = rank;
+
+        this.__isVisible = isVisible;
+    }
+
+    /**
+     * Flips the card - a visible card becomes hidden, a hidden card becomes visible.
+     */
+    public flip() {
+        this.__isVisible = !this.__isVisible;
+    }
 }
