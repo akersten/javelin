@@ -22,15 +22,19 @@ export class MarkupGenerator {
 
         if (card.isVisible) {
             $emit = $emit.append(
-              $("<h2>").text(this.getSuitDisplayName(card.suit))
+              $("<p>").text(this.getSuitDisplayName(card.suit))
             );
 
             $emit = $emit.append(
-                $("<p>").text(card.rank)
+                $("<p>").text(card.rank).addClass("rank")
+            );
+
+            $emit = $emit.append(
+                $("<p>").text(this.getSuitDisplayName(card.suit))
             );
         } else {
             $emit = $emit.append(
-                $("<h2>").text("?")
+                $("<p>").text("?").addClass("rank")
             );
         }
 

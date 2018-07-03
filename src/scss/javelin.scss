@@ -1,33 +1,55 @@
-#gameboard {
-  width: 100%;
-  height: 100%;
-
-  background-color: #eeffee;
-}
-
 html {
   font-size: 16pt;
 }
 
-.hand {
+#gameboard {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background-color: #eeffee;
+}
+
+#playerCards {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.subhand {
   display: flex;
   flex-wrap: wrap;
-}
-
-.hand + .hand {
-  margin-top: 10rem;
-}
-
-#opponentCards {
-  flex-direction: row-reverse;
+  justify-content: center;
 }
 
 .card {
-  min-width: 4rem;
   background-color: white;
-  flex-basis: 12.5%;
+  margin: 0.25rem;
+  min-width: 5rem;
+  min-height: calc((3.5/2.25)*5rem);
+  position: relative;
 }
 
-.card.red {
-  color: red;
-}
+  .card.red {
+    color: red;
+  }
+
+  .card p {
+    margin: 0;
+  }
+
+  .card p.rank {
+    font-size: 1.5rem;
+    text-align: center;
+    position: relative;
+    top: 15%;
+  }
+
+  .card p + p:last-of-type {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }

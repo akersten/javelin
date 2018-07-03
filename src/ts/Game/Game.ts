@@ -1,6 +1,7 @@
 import {ActionFrame, ActionFrameType} from "./ActionFrame";
 import {GameState} from "./GameState";
 import {MarkupGenerator} from "../Markup/MarkupGenerator";
+import {Renderer} from "../Renderer/Renderer";
 
 export class Game {
     /**
@@ -23,27 +24,7 @@ export class Game {
 
 
     private updateView() {
-        let $playerCards = $("#playerCards");
-        let $opponentCards = $("#opponentCards");
-
-        $playerCards.empty();
-        $opponentCards.empty();
-
-        let $playerCardsBuilder = $();
-        let $opponentCardsBuilder = $();
-
-        for (let card of this.__gameState.opponent.hand.cards) {
-            $opponentCardsBuilder = $opponentCardsBuilder.add(MarkupGenerator.emitCardMarkup(card));
-        }
-
-        for (let card of this.__gameState.player.hand.cards) {
-            $playerCardsBuilder = $playerCardsBuilder.add(MarkupGenerator.emitCardMarkup(card));
-        }
-
-        $playerCards.append($playerCardsBuilder);
-        $opponentCards.append($opponentCardsBuilder);
-
-
+        Renderer.redraw(this.__gameState);
         // TODO: reset event listeners
     }
 
