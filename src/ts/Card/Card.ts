@@ -6,6 +6,7 @@ export class Card {
     private __rank: Rank;
 
     private __isVisible: boolean;
+    private __isSideways: boolean;
 
 
     public get suit(): Suit {
@@ -20,11 +21,16 @@ export class Card {
         return this.__isVisible;
     }
 
-    constructor(suit: Suit, rank: Rank, isVisible: boolean = true) {
+    public get isSideways(): boolean {
+        return this.__isSideways;
+    }
+
+    constructor(suit: Suit, rank: Rank, isVisible: boolean = true, isSideways: boolean = false) {
         this.__suit = suit;
         this.__rank = rank;
 
         this.__isVisible = isVisible;
+        this.__isSideways = isSideways;
     }
 
     /**
@@ -32,5 +38,12 @@ export class Card {
      */
     public flip() {
         this.__isVisible = !this.__isVisible;
+    }
+
+    /**
+     * Disables a card by turning it sideways.
+     */
+    public disable() {
+        this.__isSideways = true;
     }
 }
