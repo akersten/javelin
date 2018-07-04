@@ -2,6 +2,7 @@ import {ActionFrame, ActionFrameType} from "./ActionFrame";
 import {GameState} from "./GameState";
 import {MarkupGenerator} from "../Markup/MarkupGenerator";
 import {Renderer} from "../Renderer/Renderer";
+import {EventHandler} from "../Input/EventHandler";
 
 export class Game {
     /**
@@ -24,8 +25,9 @@ export class Game {
 
 
     private updateView() {
+        $("#gameboard *").off(); // Remove event listeners
         Renderer.redraw(this.__gameState);
-        // TODO: reset event listeners
+        EventHandler.attachEventListeners(this);
     }
 
 

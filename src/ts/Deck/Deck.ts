@@ -2,6 +2,8 @@ import {Card} from "../Card/Card";
 
 export class Deck {
 
+    private static CardCount = 0;
+
     private __cards: Card[];
 
 
@@ -16,7 +18,9 @@ export class Deck {
 
 
     public addCard(card: Card): void {
+        card.id = Deck.CardCount;
         this.__cards.push(card);
+        Deck.CardCount++;
     }
 
     public drawCard(): Card | undefined {

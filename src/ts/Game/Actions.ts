@@ -8,7 +8,6 @@ import {Hand} from "../Player/Hand";
  * Action representing the start of the game.
  */
 export class GameStartLocalAction implements IActionFramePayload {
-
     public readonly type: ActionFrameType = ActionFrameType.GAME_START_LOCAL;
 
     private __player: Player;
@@ -48,6 +47,9 @@ export class GameStartLocalAction implements IActionFramePayload {
  * Action representing the game dealing a card to a player, adding the card to their deck.
  */
 export class GameDealAction implements IActionFramePayload {
+    public readonly type: ActionFrameType = ActionFrameType.GAME_DEAL;
+
+
     private __player: Player;
     private __card: Card;
 
@@ -61,9 +63,6 @@ export class GameDealAction implements IActionFramePayload {
     }
 
 
-    public readonly type: ActionFrameType = ActionFrameType.GAME_DEAL;
-
-
     constructor(player: Player, card: Card) {
         this.__player = player;
         this.__card = card;
@@ -71,6 +70,50 @@ export class GameDealAction implements IActionFramePayload {
 
 
     public mutate(state: GameState): GameState {
+        return state;
+    }
+
+    public unmutate(state: GameState): GameState {
+        return state;
+    }
+}
+
+
+export class HandReplaceCardAction implements IActionFramePayload {
+    public readonly type: ActionFrameType = ActionFrameType.HAND_REPLACE_CARD;
+
+    private __hand: Hand;
+    private __card: Card;
+
+    public get card(): Card {
+        return this.__card
+    }
+
+    public get hand(): Hand{
+        return this.__hand;
+    }
+
+
+    constructor(hand: Hand, card: Card) {
+        this.__hand = hand;
+        this.__card = card;
+    }
+
+
+    public mutate(state: GameState): GameState {
+        let newCard = state.deck.drawCard();
+
+        if (typeof newCard === "undefined") {
+            return state;
+        }
+
+        for (let i = 0; i < this.__hand.cards.length; i++) {
+            if (this.__hand.cards[i] == this.__card) {
+                this.__hand.cards[i] = newCard;
+                break;
+            }
+        }
+
         return state;
     }
 

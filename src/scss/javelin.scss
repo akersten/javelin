@@ -31,7 +31,22 @@ html {
   min-width: 5rem;
   min-height: calc((3.5/2.25)*5rem);
   position: relative;
+  
+  animation: cardCreationFrames;
+  animation-duration: 0.25s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
+
+  @keyframes cardCreationFrames {
+    from {
+      transform: scale(0.0);
+    }
+
+    to {
+      transform: scale(1.0);
+    }
+  }
 
   .card.red {
     color: red;

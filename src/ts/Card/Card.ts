@@ -5,6 +5,8 @@ export class Card {
     private __suit: Suit;
     private __rank: Rank;
 
+    private __id?: number;
+
     private __isVisible: boolean;
     private __isSideways: boolean;
 
@@ -15,6 +17,14 @@ export class Card {
 
     public get rank(): Rank {
         return this.__rank;
+    }
+
+    public get id(): number | undefined {
+        return this.__id;
+    }
+
+    public set id(value: number | undefined) {
+        this.__id = value;
     }
 
     public get isVisible(): boolean {

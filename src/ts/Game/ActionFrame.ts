@@ -4,6 +4,7 @@
 import {Card} from "../Card/Card";
 import {Player} from "../Player/Player";
 import {GameState} from "./GameState";
+import {Hand} from "../Player/Hand";
 
 
 /**
@@ -14,6 +15,7 @@ export enum ActionFrameType {
     GAME_START_SPLITSCREEN,
     GAME_START_ONLINE,
     GAME_DEAL,
+    HAND_REPLACE_CARD,
 }
 
 
@@ -28,6 +30,7 @@ export interface IActionFramePayload {
     unmutate(state: GameState): GameState;
 
     readonly card?: Card;
+    readonly hand?: Hand;
     readonly player?: Player;
     readonly opponent?: Player;
 }

@@ -14,7 +14,7 @@ export class MarkupGenerator {
 
 
     public static emitCardMarkup(card: Card) {
-        let $emit = $("<div>").addClass("card");
+        let $emit = $("<div>").addClass("card").data("card-id",card.id);
 
         if (((card.suit === Suit.HEARTS) || (card.suit === Suit.DIAMONDS)) && card.isVisible) {
             $emit.addClass("red");
