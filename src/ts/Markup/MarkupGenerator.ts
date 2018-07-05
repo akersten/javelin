@@ -1,6 +1,7 @@
 import {Card} from "../Card/Card";
 import {Suit} from "../Card/CardEnums";
 import {Hand} from "../Player/Hand";
+import {GameState} from "../Game/GameState";
 
 export class MarkupGenerator {
 
@@ -20,7 +21,7 @@ export class MarkupGenerator {
      * @param {boolean} isPlayerCard Whether this card belongs to the player.
      * @return {JQuery<HTMLElement>}
      */
-    public static emitCardMarkup(card: Card, isPlayerCard: boolean) {
+    public static emitCardMarkup(card: Card, gameState: GameState, isPlayerCard: boolean) {
         let $container = $("<div>", {"data-card-id": card.id}).addClass("cardContainer");
         let $emit = $("<div>").addClass("card");
 
@@ -56,15 +57,15 @@ export class MarkupGenerator {
 
 
 
-        if (isPlayerCard && card.isVisible) {
-            $cardControls = $cardControls.append($("<a>").attr("href","#").append($("<span>").text("R")).append($("<span>").text("eplace").addClass("hide-small")));
+        if (isPlayerCard && card.isVisible && gameState.deck.getSize() > 0) {
+            $cardControls = $cardControls.append($("<a>", {"data-card-id": card.id, "data-action": "replace"}).addClass("cardAction").attr("href","#").append($("<span>").text("R")).append($("<span>").text("eplace").addClass("hide-small")));
         }
 
         if (!isPlayerCard && !card.isSideways) {
             if (card.isVisible) {
-                $cardControls = $cardControls.append($("<a>").attr("href","#").append($("<span>").text("A")).append($("<span>").text("ttack").addClass("hide-small")));
+                $cardControls = $cardControls.append($("<a>", {"data-card-id": card.id, "data-action": "attack"}).addClass("cardAction").attr("href","#").append($("<span>").text("A")).append($("<span>").text("ttack").addClass("hide-small")));
             } else {
-                $cardControls = $cardControls.append($("<a>").attr("href","#").append($("<span>").text("G")).append($("<span>").text("uess").addClass("hide-small")));
+                $cardControls = $cardControls.append($("<a>", {"data-card-id": card.id, "data-action": "guess"}).addClass("cardAction").attr("href","#").append($("<span>").text("G")).append($("<span>").text("uess").addClass("hide-small")));
             }
         }
 

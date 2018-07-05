@@ -12,27 +12,41 @@ export class EventHandler {
      * @param {Game} game
      */
     public static attachEventListeners(game: Game): void {
-        // TODO
         $(".card").on("click", (event) => {this.eventCardClicked(event, game)})
+        $(".cardAction").on("click", (event) => {this.eventCardAction(event, game)})
     }
 
     private static eventCardClicked(event: any, game: Game) {
         let cardId = $(event.currentTarget).data("card-id");
+        let cardHandObj: {card: Card, hand: Hand} | undefined = GameUtils.findHandWithCard(game.gameState, cardId);
 
-        let target: {card: Card, hand: Hand} | undefined = GameUtils.findHandWithCard(game.gameState, cardId);
-
-        if (typeof target === "undefined") {
+        if (typeof cardHandObj === "undefined") {
             return;
         }
 
-        if (!target.card.isVisible) {
+        //TODO: If we're in select-mode then we should select this card.
+    }
+
+    private static eventCardAction(event: any, game: Game) {
+        let cardId = $(event.currentTarget).data("card-id");
+        let action = $(event.currentTarget).data("action");
+        let cardHandObj: {card: Card, hand: Hand} | undefined = GameUtils.findHandWithCard(game.gameState, cardId);
+        if (typeof cardHandObj === "undefined") {
             return;
         }
 
-        if (target.hand !== game.gameState.player.hand) {
-            return;
+        switch (action) {
+            case "replace":
+                game.pushAction(new ActionFrame(new HandReplaceCardAction(cardHandObj.hand, cardHandObj.card)));
+                break;
+            case "attack":
+                alert("TODO: Attack");
+                break;
+            case "guess":
+                alert("TODO: Guess");
+                break;
+            default:
+                return;
         }
-
-        game.pushAction(new ActionFrame(new HandReplaceCardAction(target.hand, target.card)));
     }
 }
