@@ -15,8 +15,11 @@ export enum ActionFrameType {
     GAME_START_SPLITSCREEN,
     GAME_START_ONLINE,
     GAME_DEAL,
+
     HAND_REPLACE_CARD,
-    PLAYER_GUESS_CARD,
+
+    PLAYER_GUESS_CARD_START,
+    PLAYER_GUESS_CARD_END,
 }
 
 
@@ -28,12 +31,15 @@ export interface IActionFramePayload {
     readonly type: ActionFrameType;
 
     mutate(state: GameState): GameState;
+
     unmutate(state: GameState): GameState;
 
     readonly card?: Card;
+    readonly target?: Card;
     readonly hand?: Hand;
     readonly player?: Player;
     readonly opponent?: Player;
+    readonly guessedHigher?: boolean;
 }
 
 

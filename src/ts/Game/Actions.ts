@@ -126,8 +126,8 @@ export class HandReplaceCardAction implements IActionFramePayload {
 }
 
 
-export class PlayerGuessCardAction implements IActionFramePayload {
-    public readonly type: ActionFrameType = ActionFrameType.PLAYER_GUESS_CARD;
+export class PlayerGuessCardStartAction implements IActionFramePayload {
+    public readonly type: ActionFrameType = ActionFrameType.PLAYER_GUESS_CARD_START;
 
     private __hand: Hand;
     private __card: Card;
@@ -160,6 +160,58 @@ export class PlayerGuessCardAction implements IActionFramePayload {
 
     public unmutate(state: GameState): GameState {
         this.__player.isGuessing = false;
+        return state;
+    }
+}
+
+
+export class PlayerGuessCardEndAction implements IActionFramePayload {
+      public readonly type: ActionFrameType = ActionFrameType.PLAYER_GUESS_CARD_END;
+
+    private __hand: Hand;
+    private __card: Card;
+    private __player: Player;
+    private __guessedHigher: boolean;
+    private __target: Card;
+
+
+    public get card(): Card {
+        return this.__card
+    }
+
+    public get hand(): Hand{
+        return this.__hand;
+    }
+
+    public get player(): Player {
+        return this.__player;
+    }
+
+    public get guessedHigher(): boolean {
+        return this.__guessedHigher;
+    }
+
+    public get target(): boolean {
+        return this.__target;
+    }
+
+
+    constructor(hand: Hand, card: Card, player: Player, guessedHigher: boolean, target: Card) {
+        this.__hand = hand;
+        this.__card = card;
+        this.__player = player;
+        this.__guessedHigher = guessedHigher;
+        this.__target = target;
+    }
+
+
+    public mutate(state: GameState): GameState {
+        //TODO
+        return state;
+    }
+
+    public unmutate(state: GameState): GameState {
+        //TODO
         return state;
     }
 }

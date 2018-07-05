@@ -1,7 +1,7 @@
 import {Game} from "../Game/Game";
 import {GameUtils} from "../Game/GameUtils";
-import {HandReplaceCardAction, PlayerGuessCardAction} from "../Game/Actions";
-import {ActionFrame} from "../Game/ActionFrame";
+import {HandReplaceCardAction, PlayerGuessCardEndAction, PlayerGuessCardStartAction} from "../Game/Actions";
+import {ActionFrame, ActionFrameType} from "../Game/ActionFrame";
 import {Hand} from "../Player/Hand";
 import {Card} from "../Card/Card";
 
@@ -43,6 +43,9 @@ export class EventHandler {
             return;
         }
 
+        let lastAction: ActionFrame | undefined = game.peekAction();
+
+
         switch (action) {
             case "replace":
                 game.pushAction(new ActionFrame(new HandReplaceCardAction(cardHandObj.hand, cardHandObj.card)));
@@ -51,13 +54,23 @@ export class EventHandler {
                 alert("TODO: Attack");
                 break;
             case "guess":
-                game.pushAction(new ActionFrame(new PlayerGuessCardAction(cardHandObj.hand, cardHandObj.card, game.gameState.player)));
+                game.pushAction(new ActionFrame(new PlayerGuessCardStartAction(cardHandObj.hand, cardHandObj.card, game.gameState.player)));
                 break;
             case "higher":
-                alert("TODO: Other card is higher");
+
+                if (typeof lastAction !== "undefined" && lastAction.type === ActionFrameType.PLAYER_GUESS_CARD_START) {
+                    let lastCard: Card | undefined = lastAction.payload.card;
+                    if (typeof lastCard === "undefined") {
+                        return;
+                    }
+                    game.pushAction(new ActionFrame(new PlayerGuessCardEndAction(cardHandObj.hand, cardHandObj.card, game.gameState.player, true, lastCard)));
+                }
+
                 break;
             case "lower":
-                alert("TODO: Other card is lower");
+                if (typeof lastAction !== "undefined" && lastAction.type === ActionFrameType.PLAYER_GUESS_CARD_START) {
+                    game.pushAction(new ActionFrame(new PlayerGuessCardEndAction(cardHandObj.hand, cardHandObj.card, game.gameState.player, false)));
+                }
                 break;
             default:
                 return;

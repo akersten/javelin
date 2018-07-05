@@ -59,4 +59,16 @@ export class Game {
         // TODO: Once we have a renderer, we won't need this.
         this.updateView()
     }
+
+    /**
+     * Returns the last action that was performed in the game.
+     * @return {ActionFrame | undefined} The last action that was performed in the game.
+     */
+    public peekAction(): ActionFrame | undefined {
+        if (this.__actionStack.length < 1) {
+            return undefined;
+        }
+
+        return this.__actionStack[this.__actionStack.length - 1];
+    }
 }
