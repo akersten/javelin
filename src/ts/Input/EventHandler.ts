@@ -16,15 +16,20 @@ export class EventHandler {
         $(".card").on("click", (event) => {this.eventCardClicked(event, game)})
     }
 
-
-
-
     private static eventCardClicked(event: any, game: Game) {
         let cardId = $(event.currentTarget).data("card-id");
 
         let target: {card: Card, hand: Hand} | undefined = GameUtils.findHandWithCard(game.gameState, cardId);
 
         if (typeof target === "undefined") {
+            return;
+        }
+
+        if (!target.card.isVisible) {
+            return;
+        }
+
+        if (target.hand !== game.gameState.player.hand) {
             return;
         }
 
