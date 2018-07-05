@@ -14,10 +14,14 @@ export class EventHandler {
     public static attachEventListeners(game: Game): void {
         $(".card").on("click", (event) => {
             this.eventCardClicked(event, game)
-        })
+        });
+
         $(".cardAction").on("click", (event) => {
             this.eventCardAction(event, game)
-        })
+        });
+        $("#undoButton").on("click", (event) => {
+            game.popAction();
+        });
     }
 
     private static eventCardClicked(event: any, game: Game) {
