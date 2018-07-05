@@ -7,6 +7,11 @@ export class Card {
 
     private __id?: number;
 
+    /**
+     * Whether we haven't done our first render of this card yet (i.e. whether the renderer should animate the card).
+     */
+    private __renderIsFresh: boolean;
+
     private __isVisible: boolean;
     private __isSideways: boolean;
 
@@ -27,6 +32,14 @@ export class Card {
         this.__id = value;
     }
 
+    public get renderIsFresh(): boolean {
+        return this.__renderIsFresh;
+    }
+
+    public set renderIsFresh(value: boolean) {
+        this.__renderIsFresh = value;
+    }
+
     public get isVisible(): boolean {
         return this.__isVisible;
     }
@@ -41,6 +54,8 @@ export class Card {
 
         this.__isVisible = isVisible;
         this.__isSideways = isSideways;
+
+        this.__renderIsFresh = true;
     }
 
     /**

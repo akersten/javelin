@@ -14,10 +14,14 @@ export class MarkupGenerator {
 
 
     public static emitCardMarkup(card: Card) {
-        let $emit = $("<div>").addClass("card").data("card-id",card.id);
+        let $emit = $("<div>", {"data-card-id": card.id}).addClass("card");
 
         if (((card.suit === Suit.HEARTS) || (card.suit === Suit.DIAMONDS)) && card.isVisible) {
             $emit.addClass("red");
+        }
+
+        if (card.renderIsFresh) {
+            $emit.addClass("fresh");
         }
 
         if (card.isVisible) {
@@ -38,6 +42,7 @@ export class MarkupGenerator {
             );
         }
 
+        card.renderIsFresh = false;
         return $emit;
     }
 }
