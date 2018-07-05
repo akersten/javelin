@@ -1,6 +1,6 @@
 import {Game} from "../Game/Game";
 import {GameUtils} from "../Game/GameUtils";
-import {HandReplaceCardAction} from "../Game/Actions";
+import {HandReplaceCardAction, PlayerGuessCardAction} from "../Game/Actions";
 import {ActionFrame} from "../Game/ActionFrame";
 import {Hand} from "../Player/Hand";
 import {Card} from "../Card/Card";
@@ -12,25 +12,29 @@ export class EventHandler {
      * @param {Game} game
      */
     public static attachEventListeners(game: Game): void {
-        $(".card").on("click", (event) => {this.eventCardClicked(event, game)})
-        $(".cardAction").on("click", (event) => {this.eventCardAction(event, game)})
+        $(".card").on("click", (event) => {
+            this.eventCardClicked(event, game)
+        })
+        $(".cardAction").on("click", (event) => {
+            this.eventCardAction(event, game)
+        })
     }
 
     private static eventCardClicked(event: any, game: Game) {
         let cardId = $(event.currentTarget).data("card-id");
-        let cardHandObj: {card: Card, hand: Hand} | undefined = GameUtils.findHandWithCard(game.gameState, cardId);
+        let cardHandObj: { card: Card, hand: Hand } | undefined = GameUtils.findHandWithCard(game.gameState, cardId);
 
         if (typeof cardHandObj === "undefined") {
             return;
         }
 
-        //TODO: If we're in select-mode then we should select this card.
+        //TODO: If we're in select-mode then we should select this card. Actually, might not need this..
     }
 
     private static eventCardAction(event: any, game: Game) {
         let cardId = $(event.currentTarget).data("card-id");
         let action = $(event.currentTarget).data("action");
-        let cardHandObj: {card: Card, hand: Hand} | undefined = GameUtils.findHandWithCard(game.gameState, cardId);
+        let cardHandObj: { card: Card, hand: Hand } | undefined = GameUtils.findHandWithCard(game.gameState, cardId);
         if (typeof cardHandObj === "undefined") {
             return;
         }
@@ -43,7 +47,13 @@ export class EventHandler {
                 alert("TODO: Attack");
                 break;
             case "guess":
-                alert("TODO: Guess");
+                game.pushAction(new ActionFrame(new PlayerGuessCardAction(cardHandObj.hand, cardHandObj.card, game.gameState.player)));
+                break;
+            case "higher":
+                alert("TODO: Other card is higher");
+                break;
+            case "lower":
+                alert("TODO: Other card is lower");
                 break;
             default:
                 return;

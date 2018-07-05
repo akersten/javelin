@@ -16,6 +16,7 @@ export enum ActionFrameType {
     GAME_START_ONLINE,
     GAME_DEAL,
     HAND_REPLACE_CARD,
+    PLAYER_GUESS_CARD,
 }
 
 

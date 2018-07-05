@@ -39,6 +39,7 @@ export class GameStartLocalAction implements IActionFramePayload {
     }
 
     public unmutate(state: GameState): GameState {
+        // TODO
         return state;
     }
 }
@@ -74,6 +75,7 @@ export class GameDealAction implements IActionFramePayload {
     }
 
     public unmutate(state: GameState): GameState {
+        // TODO
         return state;
     }
 }
@@ -118,6 +120,46 @@ export class HandReplaceCardAction implements IActionFramePayload {
     }
 
     public unmutate(state: GameState): GameState {
+        // TODO
+        return state;
+    }
+}
+
+
+export class PlayerGuessCardAction implements IActionFramePayload {
+    public readonly type: ActionFrameType = ActionFrameType.PLAYER_GUESS_CARD;
+
+    private __hand: Hand;
+    private __card: Card;
+    private __player: Player;
+
+
+    public get card(): Card {
+        return this.__card
+    }
+
+    public get hand(): Hand{
+        return this.__hand;
+    }
+
+    public get player(): Player {
+        return this.__player;
+    }
+
+
+    constructor(hand: Hand, card: Card, player: Player) {
+        this.__hand = hand;
+        this.__card = card;
+        this.__player = player;
+    }
+
+    public mutate(state: GameState): GameState {
+        this.__player.isGuessing = true;
+        return state;
+    }
+
+    public unmutate(state: GameState): GameState {
+        this.__player.isGuessing = false;
         return state;
     }
 }
