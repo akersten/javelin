@@ -1,5 +1,5 @@
 html {
-  font-size: 16pt;
+  font-size: calc(0.024 * 100vh);
 }
 
 #gameboard {
@@ -70,3 +70,15 @@ html {
     bottom: 0;
     right: 0;
   }
+
+  
+@media (max-width: 1024px) {
+  .hide-small {
+    display: none;
+  }
+
+  .card {
+    min-width: 2rem;
+    margin: 0.5rem;
+  }
+}

@@ -1,5 +1,6 @@
 import {Card} from "../Card/Card";
 import {Suit} from "../Card/CardEnums";
+import {Hand} from "../Player/Hand";
 
 export class MarkupGenerator {
 
@@ -13,8 +14,15 @@ export class MarkupGenerator {
     }
 
 
-    public static emitCardMarkup(card: Card) {
-        let $emit = $("<div>", {"data-card-id": card.id}).addClass("card");
+    /**
+     * Returns the markup for a card to render on the gameboard.
+     * @param {Card} card The card object to render.
+     * @param {boolean} isPlayerCard Whether this card belongs to the player.
+     * @return {JQuery<HTMLElement>}
+     */
+    public static emitCardMarkup(card: Card, isPlayerCard: boolean) {
+        let $container = $("<div>", {"data-card-id": card.id}).addClass("cardContainer");
+        let $emit = $("<div>").addClass("card");
 
         if (((card.suit === Suit.HEARTS) || (card.suit === Suit.DIAMONDS)) && card.isVisible) {
             $emit.addClass("red");
@@ -42,7 +50,28 @@ export class MarkupGenerator {
             );
         }
 
+
+
+        let $cardControls = $("<div>").addClass("cardControls");
+
+
+
+        if (isPlayerCard && card.isVisible) {
+            $cardControls = $cardControls.append($("<a>").attr("href","#").append($("<span>").text("R")).append($("<span>").text("eplace").addClass("hide-small")));
+        }
+
+        if (!isPlayerCard && !card.isSideways) {
+            if (card.isVisible) {
+                $cardControls = $cardControls.append($("<a>").attr("href","#").append($("<span>").text("A")).append($("<span>").text("ttack").addClass("hide-small")));
+            } else {
+                $cardControls = $cardControls.append($("<a>").attr("href","#").append($("<span>").text("G")).append($("<span>").text("uess").addClass("hide-small")));
+            }
+        }
+
+        $container = $container.append($emit);
+        $container = $container.append($cardControls);
+
         card.renderIsFresh = false;
-        return $emit;
+        return $container;
     }
 }

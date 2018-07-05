@@ -22,17 +22,17 @@ export class Renderer {
 
         for (let card of gameState.opponent.hand.cards) {
             if (card.isVisible) {
-                $opponentCardsBuilderVisible = $opponentCardsBuilderVisible.add(MarkupGenerator.emitCardMarkup(card));
+                $opponentCardsBuilderVisible = $opponentCardsBuilderVisible.add(MarkupGenerator.emitCardMarkup(card,false));
             } else {
-                $opponentCardsBuilderHidden = $opponentCardsBuilderHidden.add(MarkupGenerator.emitCardMarkup(card));
+                $opponentCardsBuilderHidden = $opponentCardsBuilderHidden.add(MarkupGenerator.emitCardMarkup(card, false));
             }
         }
 
         for (let card of gameState.player.hand.cards) {
             if (card.isVisible) {
-                $playerCardsBuilderVisible = $playerCardsBuilderVisible.add(MarkupGenerator.emitCardMarkup(card));
+                $playerCardsBuilderVisible = $playerCardsBuilderVisible.add(MarkupGenerator.emitCardMarkup(card, true));
             } else {
-                $playerCardsBuilderHidden = $playerCardsBuilderHidden.add(MarkupGenerator.emitCardMarkup(card));
+                $playerCardsBuilderHidden = $playerCardsBuilderHidden.add(MarkupGenerator.emitCardMarkup(card, true));
             }
         }
 
