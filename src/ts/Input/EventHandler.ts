@@ -69,7 +69,11 @@ export class EventHandler {
                 break;
             case "lower":
                 if (typeof lastAction !== "undefined" && lastAction.type === ActionFrameType.PLAYER_GUESS_CARD_START) {
-                    game.pushAction(new ActionFrame(new PlayerGuessCardEndAction(cardHandObj.hand, cardHandObj.card, game.gameState.player, false)));
+                    let lastCard: Card | undefined = lastAction.payload.card;
+                    if (typeof lastCard === "undefined") {
+                        return;
+                    }
+                    game.pushAction(new ActionFrame(new PlayerGuessCardEndAction(cardHandObj.hand, cardHandObj.card, game.gameState.player, false, lastCard)));
                 }
                 break;
             default:

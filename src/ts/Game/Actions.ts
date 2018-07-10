@@ -191,7 +191,7 @@ export class PlayerGuessCardEndAction implements IActionFramePayload {
         return this.__guessedHigher;
     }
 
-    public get target(): boolean {
+    public get target(): Card {
         return this.__target;
     }
 
