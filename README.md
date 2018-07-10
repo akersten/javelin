@@ -49,8 +49,8 @@ cards may not be used to attack, but may themselves be attacked.
 A player may choose to discard one of their face-up cards and replace it with
 a freshly-drawn card from the deck.
 
-When a card is replaced, it retains its orientation (i.e. a replaced sideways
-card will remain sideways).
+If a sideways card is replaced, it resets its orientation (i.e. a sideways
+card is replaced with an upright card and can be used to attack or guess again).
 
 ## Scoring
 (Todo)
