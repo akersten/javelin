@@ -53,6 +53,9 @@ export class EventHandler {
             case "attack":
                 alert("TODO: Attack");
                 break;
+            case "attackselect":
+                alert("TODO: Attackselect");
+                break;
             case "guess":
                 game.pushAction(new ActionFrame(new PlayerGuessCardStartAction(cardHandObj.hand, cardHandObj.card, game.gameState.player)));
                 break;
