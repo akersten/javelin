@@ -220,7 +220,14 @@ export class PlayerGuessCardEndAction implements IActionFramePayload {
     }
 
     public unmutate(state: GameState): GameState {
-        //TODO
+        if (this.__card.isSideways) {
+            this.__card.enable();
+            this.__target.flip();
+            this.__card.renderIsFresh = true;
+            this.__target.renderIsFresh = true;
+        }
+
+        this.__player.isGuessing = true;
         return state;
     }
 }

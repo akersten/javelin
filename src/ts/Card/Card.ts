@@ -83,6 +83,10 @@ export class Card {
         this.__isSideways = true;
     }
 
+    public enable() {
+        this.__isSideways = false;
+    }
+
     public getNumericRank(): number {
         switch (this.rank) {
             case "K":
