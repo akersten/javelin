@@ -33,6 +33,10 @@ export class Deck {
         return this.__cards[this.__cards.length - 1];
     }
 
+    public pushCard(card: Card): void {
+        this.__cards.push(card);
+    }
+
     public getSize(): number {
         return this.__cards.length;
     }

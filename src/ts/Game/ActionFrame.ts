@@ -14,7 +14,6 @@ export enum ActionFrameType {
     GAME_START_LOCAL,
     GAME_START_SPLITSCREEN,
     GAME_START_ONLINE,
-    GAME_DEAL,
 
     HAND_REPLACE_CARD,
 
