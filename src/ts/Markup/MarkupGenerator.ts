@@ -37,6 +37,10 @@ export class MarkupGenerator {
             $emit.addClass("fresh");
         }
 
+        if (card.isSideways) {
+            $emit.addClass("disabled");
+        }
+
         if (card.isVisible) {
             $emit = $emit.append(
                 $("<p>").text(this.getSuitDisplayName(card.suit))

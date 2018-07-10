@@ -209,8 +209,8 @@ export class PlayerGuessCardEndAction implements IActionFramePayload {
         //TODO
         this.__player.isGuessing = false;
 
-        if ((this.guessedHigher && this.__target.rank > this.__card.rank)
-            || (!this.guessedHigher && this.__target.rank < this.__card.rank)) {
+        if ((this.guessedHigher && this.__target.compareTo(this.__card) > 0)
+            || (!this.guessedHigher && this.__target.compareTo(this.__card) < 0)) {
             this.__card.disable();
             this.__target.flip();
             this.__target.renderIsFresh = true;

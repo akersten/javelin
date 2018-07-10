@@ -56,7 +56,7 @@ export class Card {
     public get isSideways(): boolean {
         return this.__isSideways;
     }
-    
+
 
     constructor(suit: Suit, rank: Rank, isVisible: boolean = true, isSideways: boolean = false) {
         this.__suit = suit;
@@ -82,4 +82,33 @@ export class Card {
     public disable() {
         this.__isSideways = true;
     }
+
+    public getNumericRank(): number {
+        switch (this.rank) {
+            case "K":
+                return 13;
+            case "Q":
+                return 12;
+            case "J":
+                return 11;
+            case "A":
+                return 1;
+            default:
+                return parseInt(this.rank);
+        }
+    }
+
+    public compareTo(card: Card): number {
+        let myCardRank: number = this.getNumericRank();
+        let yourCardRank: number = card.getNumericRank();
+
+        if (myCardRank === yourCardRank) {
+            return 0;
+        } else if (myCardRank < yourCardRank) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
 }
