@@ -35,13 +35,35 @@ html {
   min-width: 5rem;
   min-height: calc((3.5/2.25)*5rem);
   position: relative;
-}
 
-.card.fresh {
-  animation: cardCreationFrames;
-  animation-duration: 0.25s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
+  &.fresh {
+    animation: cardCreationFrames;
+    animation-duration: 0.25s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+
+  &.red {
+    color: red;
+  }
+
+  p {
+    margin: 0;
+
+    &.rank {
+      font-size: 1.5rem;
+      text-align: center;
+      position: relative;
+      top: 15%;
+
+    }
+
+    & + p:last-of-type {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+  }
 }
 
   @keyframes cardCreationFrames {
@@ -54,26 +76,6 @@ html {
     }
   }
 
-  .card.red {
-    color: red;
-  }
-
-  .card p {
-    margin: 0;
-  }
-
-  .card p.rank {
-    font-size: 1.5rem;
-    text-align: center;
-    position: relative;
-    top: 15%;
-  }
-
-  .card p + p:last-of-type {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-  }
 
   
 @media (max-width: 1024px) {

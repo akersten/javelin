@@ -13,6 +13,7 @@ export class Card {
     private __renderIsFresh: boolean;
 
     private __isVisible: boolean;
+    private __isVisibleOriginally: boolean;
     private __isSideways: boolean;
 
 
@@ -44,15 +45,25 @@ export class Card {
         return this.__isVisible;
     }
 
+    public get isVisibleOriginally(): boolean {
+        return this.__isVisibleOriginally;
+    }
+
+    public set isVisibleOriginally(value: boolean) {
+        this.__isVisibleOriginally = value;
+    }
+
     public get isSideways(): boolean {
         return this.__isSideways;
     }
+    
 
     constructor(suit: Suit, rank: Rank, isVisible: boolean = true, isSideways: boolean = false) {
         this.__suit = suit;
         this.__rank = rank;
 
         this.__isVisible = isVisible;
+        this.__isVisibleOriginally = isVisible;
         this.__isSideways = isSideways;
 
         this.__renderIsFresh = true;

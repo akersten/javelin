@@ -39,6 +39,7 @@ export class Hand {
                 c.flip();
             }
 
+            c.isVisibleOriginally = c.isVisible;
             h.addToHand(c)
         }
 

@@ -21,7 +21,7 @@ export class Renderer {
         let $opponentCardsBuilderVisible = $();
 
         for (let card of gameState.opponent.hand.cards) {
-            if (card.isVisible) {
+            if (card.isVisibleOriginally) {
                 $opponentCardsBuilderVisible = $opponentCardsBuilderVisible.add(MarkupGenerator.emitCardMarkup(card, gameState,false));
             } else {
                 $opponentCardsBuilderHidden = $opponentCardsBuilderHidden.add(MarkupGenerator.emitCardMarkup(card, gameState, false));
@@ -29,7 +29,7 @@ export class Renderer {
         }
 
         for (let card of gameState.player.hand.cards) {
-            if (card.isVisible) {
+            if (card.isVisibleOriginally) {
                 $playerCardsBuilderVisible = $playerCardsBuilderVisible.add(MarkupGenerator.emitCardMarkup(card, gameState, true));
             } else {
                 $playerCardsBuilderHidden = $playerCardsBuilderHidden.add(MarkupGenerator.emitCardMarkup(card, gameState, true));

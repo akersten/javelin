@@ -207,6 +207,15 @@ export class PlayerGuessCardEndAction implements IActionFramePayload {
 
     public mutate(state: GameState): GameState {
         //TODO
+        this.__player.isGuessing = false;
+
+        if ((this.guessedHigher && this.__target.rank > this.__card.rank)
+            || (!this.guessedHigher && this.__target.rank < this.__card.rank)) {
+            this.__card.disable();
+            this.__target.flip();
+            this.__target.renderIsFresh = true;
+        }
+
         return state;
     }
 
