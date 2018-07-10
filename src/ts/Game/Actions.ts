@@ -196,7 +196,6 @@ export class PlayerGuessCardEndAction implements IActionFramePayload {
 
 
     public mutate(state: GameState): GameState {
-        //TODO
         this.__player.isGuessing = false;
 
         if ((this.guessedHigher && this.__target.compareTo(this.__card) > 0)
@@ -218,6 +217,132 @@ export class PlayerGuessCardEndAction implements IActionFramePayload {
         }
 
         this.__player.isGuessing = true;
+        return state;
+    }
+}
+
+
+export class PlayerAttackCardStartAction implements IActionFramePayload {
+    public readonly type: ActionFrameType = ActionFrameType.PLAYER_ATTACK_CARD_START;
+
+    private __hand: Hand;
+    private __card: Card;
+    private __player: Player;
+
+
+    public get card(): Card {
+        return this.__card
+    }
+
+    public get hand(): Hand{
+        return this.__hand;
+    }
+
+    public get player(): Player {
+        return this.__player;
+    }
+
+
+    constructor(hand: Hand, card: Card, player: Player) {
+        this.__hand = hand;
+        this.__card = card;
+        this.__player = player;
+    }
+
+    public mutate(state: GameState): GameState {
+        this.__player.isAttacking = true;
+        return state;
+    }
+
+    public unmutate(state: GameState): GameState {
+        this.__player.isAttacking = false;
+        return state;
+    }
+}
+
+
+export class PlayerAttackCardEndAction implements IActionFramePayload {
+      public readonly type: ActionFrameType = ActionFrameType.PLAYER_ATTACK_CARD_END;
+
+    private __hand: Hand;
+    private __card: Card;
+    private __player: Player;
+    private __target: Card;
+
+    private __removedCard?: Card;
+    private __removedIdx?: number;
+    private __removedHand?: Hand;
+
+    public get card(): Card {
+        return this.__card
+    }
+
+    public get hand(): Hand{
+        return this.__hand;
+    }
+
+    public get player(): Player {
+        return this.__player;
+    }
+
+    public get target(): Card {
+        return this.__target;
+    }
+
+
+    constructor(hand: Hand, card: Card, player: Player, guessedHigher: boolean, target: Card) {
+        this.__hand = hand;
+        this.__card = card;
+        this.__player = player;
+        this.__target = target;
+    }
+
+
+    public mutate(state: GameState): GameState {
+        this.__player.isAttacking = false;
+
+        if (this.__target.compareTo(this.__card) < 0) {
+            return state;
+        }
+
+        if (typeof this.__target.id === "undefined") {
+            return state;
+        }
+
+        let cardInfo = GameUtils.findHandWithCard(state,this.__target.id);
+
+        if (typeof cardInfo === "undefined") {
+            return state;
+        }
+
+        this.__card.disable();
+        this.__removedCard = this.__target;
+        this.__removedIdx = cardInfo.idx;
+        this.__removedHand = cardInfo.hand;
+        cardInfo.hand.cards.splice(cardInfo.idx, 1);
+
+        return state;
+    }
+
+    public unmutate(state: GameState): GameState {
+        this.__player.isGuessing = true;
+
+        if (!this.__removedCard) {
+            return state;
+        }
+        if (!this.__removedHand) {
+            return state;
+        }
+        if (typeof this.__removedIdx === "undefined") {
+            return state;
+        }
+
+        this.__card.enable();
+
+        this.__card.renderIsFresh = true;
+        this.__removedHand.cards.splice(this.__removedIdx, 0, this.__removedCard);
+        this.__target.renderIsFresh = true;
+
         return state;
     }
 }

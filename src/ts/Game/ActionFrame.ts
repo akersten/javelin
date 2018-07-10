@@ -19,6 +19,9 @@ export enum ActionFrameType {
 
     PLAYER_GUESS_CARD_START,
     PLAYER_GUESS_CARD_END,
+
+    PLAYER_ATTACK_CARD_START,
+    PLAYER_ATTACK_CARD_END
 }
 
 

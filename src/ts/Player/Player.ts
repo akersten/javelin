@@ -13,6 +13,11 @@ export class Player {
      */
     private __isGuessing: boolean;
 
+    /**
+     * Whether the player is currently attacking an opponent's card.
+     */
+    private __isAttacking: boolean;
+
 
     public get hand(): Hand {
         return this.__hand
@@ -31,8 +36,18 @@ export class Player {
     }
 
 
+    public get isAttacking(): boolean {
+        return this.__isAttacking;
+    }
+
+    public set isAttacking(value: boolean) {
+        this.__isAttacking = value;
+    }
+
+
     constructor() {
         this.__hand = new Hand();
         this.__isGuessing = false;
+        this.__isAttacking = false;
     }
 }
