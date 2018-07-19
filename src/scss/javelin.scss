@@ -2,14 +2,23 @@ html {
   font-size: calc(0.024 * 100vh);
 }
 
-#gameboard {
+#gameboard, #scoreboard {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+}
 
+#gameboard {
   background-color: #eeffee;
+}
+
+#scoreboard {
+  background-color: #bababa;
+  z-index: 100;
+  right: 80%;
+  bottom: 80%;
 }
 
 #playerCards {

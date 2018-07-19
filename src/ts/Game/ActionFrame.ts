@@ -21,7 +21,12 @@ export enum ActionFrameType {
     PLAYER_GUESS_CARD_END,
 
     PLAYER_ATTACK_CARD_START,
-    PLAYER_ATTACK_CARD_END
+    PLAYER_ATTACK_CARD_END,
+
+    PLAYER_FORFEIT,
+
+    GAME_WIN,
+    GAME_LOSE,
 }
 
 
@@ -31,6 +36,12 @@ export enum ActionFrameType {
  */
 export interface IActionFramePayload {
     readonly type: ActionFrameType;
+
+    /**
+     * Whether this action happens automatically and should be popped "for free" on an undo. In other words, when
+     * popping state, keep popping until we pop something that isn't an automatic action.
+     */
+    readonly isAutoAction: boolean;
 
     mutate(state: GameState): GameState;
 

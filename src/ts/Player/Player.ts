@@ -19,6 +19,12 @@ export class Player {
     private __isAttacking: boolean;
 
 
+    /**
+     * Whether this player has forfeit the game.
+     */
+    private __isForfeit: boolean;
+
+
     public get hand(): Hand {
         return this.__hand
     }
@@ -35,7 +41,6 @@ export class Player {
         this.__isGuessing = value;
     }
 
-
     public get isAttacking(): boolean {
         return this.__isAttacking;
     }
@@ -44,10 +49,19 @@ export class Player {
         this.__isAttacking = value;
     }
 
+    public get isForfeit(): boolean {
+        return this.__isForfeit;
+    }
+
+    public set isForfeit(value: boolean) {
+        this.__isForfeit = value;
+    }
+
 
     constructor() {
         this.__hand = new Hand();
         this.__isGuessing = false;
         this.__isAttacking = false;
+        this.__isForfeit = false;
     }
 }

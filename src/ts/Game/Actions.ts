@@ -1,7 +1,7 @@
 import {ActionFrameType, IActionFramePayload} from "./ActionFrame";
 import {Card} from "../Card/Card";
 import {Player} from "../Player/Player";
-import {GameState} from "./GameState";
+import {GameEndResult, GameState} from "./GameState";
 import {Hand} from "../Player/Hand";
 import {GameUtils} from "./GameUtils";
 
@@ -10,6 +10,7 @@ import {GameUtils} from "./GameUtils";
  */
 export class GameStartLocalAction implements IActionFramePayload {
     public readonly type: ActionFrameType = ActionFrameType.GAME_START_LOCAL;
+    public readonly isAutoAction: boolean = false;
 
     private __player: Player;
     private __opponent: Player;
@@ -48,6 +49,7 @@ export class GameStartLocalAction implements IActionFramePayload {
 
 export class HandReplaceCardAction implements IActionFramePayload {
     public readonly type: ActionFrameType = ActionFrameType.HAND_REPLACE_CARD;
+    public readonly isAutoAction: boolean = false;
 
     private __hand: Hand;
     private __card: Card;
@@ -118,6 +120,7 @@ export class HandReplaceCardAction implements IActionFramePayload {
 
 export class PlayerGuessCardStartAction implements IActionFramePayload {
     public readonly type: ActionFrameType = ActionFrameType.PLAYER_GUESS_CARD_START;
+    public readonly isAutoAction: boolean = false;
 
     private __hand: Hand;
     private __card: Card;
@@ -156,7 +159,8 @@ export class PlayerGuessCardStartAction implements IActionFramePayload {
 
 
 export class PlayerGuessCardEndAction implements IActionFramePayload {
-      public readonly type: ActionFrameType = ActionFrameType.PLAYER_GUESS_CARD_END;
+    public readonly type: ActionFrameType = ActionFrameType.PLAYER_GUESS_CARD_END;
+    public readonly isAutoAction: boolean = false;
 
     private __hand: Hand;
     private __card: Card;
@@ -224,6 +228,7 @@ export class PlayerGuessCardEndAction implements IActionFramePayload {
 
 export class PlayerAttackCardStartAction implements IActionFramePayload {
     public readonly type: ActionFrameType = ActionFrameType.PLAYER_ATTACK_CARD_START;
+    public readonly isAutoAction: boolean = false;
 
     private __hand: Hand;
     private __card: Card;
@@ -262,7 +267,8 @@ export class PlayerAttackCardStartAction implements IActionFramePayload {
 
 
 export class PlayerAttackCardEndAction implements IActionFramePayload {
-      public readonly type: ActionFrameType = ActionFrameType.PLAYER_ATTACK_CARD_END;
+    public readonly type: ActionFrameType = ActionFrameType.PLAYER_ATTACK_CARD_END;
+    public readonly isAutoAction: boolean = false;
 
     private __hand: Hand;
     private __card: Card;
@@ -343,6 +349,68 @@ export class PlayerAttackCardEndAction implements IActionFramePayload {
         this.__removedHand.cards.splice(this.__removedIdx, 0, this.__removedCard);
         this.__target.renderIsFresh = true;
 
+        return state;
+    }
+}
+
+
+export class PlayerForfeitAction implements IActionFramePayload {
+    public readonly type: ActionFrameType = ActionFrameType.PLAYER_FORFEIT;
+    public readonly isAutoAction: boolean = false;
+
+    private __player: Player;
+
+
+    public get player(): Player {
+        return this.__player;
+    }
+
+
+    constructor(player: Player) {
+        this.__player = player;
+    }
+
+
+    public mutate(state: GameState): GameState {
+        this.__player.isForfeit = true;
+        return state;
+    }
+
+    public unmutate(state: GameState): GameState {
+        this.__player.isForfeit = false;
+        return state;
+    }
+}
+
+export class GameWinAction implements IActionFramePayload {
+    public readonly type: ActionFrameType = ActionFrameType.GAME_WIN;
+    public readonly isAutoAction: boolean = true;
+
+
+    public mutate(state: GameState): GameState {
+        state.gameEndResult = GameEndResult.VICTORY;
+        return state;
+    }
+
+    public unmutate(state: GameState): GameState {
+        state.gameEndResult = GameEndResult.NONE;
+        return state;
+    }
+}
+
+
+export class GameLoseAction implements IActionFramePayload {
+    public readonly type: ActionFrameType = ActionFrameType.GAME_LOSE;
+    public readonly isAutoAction: boolean = true;
+
+
+    public mutate(state: GameState): GameState {
+        state.gameEndResult = GameEndResult.DEFEAT;
+        return state;
+    }
+
+    public unmutate(state: GameState): GameState {
+        state.gameEndResult = GameEndResult.NONE;
         return state;
     }
 }

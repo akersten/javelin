@@ -5,6 +5,8 @@ import {ActionFrame} from "./Game/ActionFrame";
 
 
 $('#gameboard').hide();
+$('#scoreboard div').hide();
+$('#scoreboard').hide();
 
 
 let game: Game = new Game();

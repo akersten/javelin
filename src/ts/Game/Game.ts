@@ -3,6 +3,8 @@ import {GameState} from "./GameState";
 import {MarkupGenerator} from "../Markup/MarkupGenerator";
 import {Renderer} from "../Renderer/Renderer";
 import {EventHandler} from "../Input/EventHandler";
+import {GameUtils} from "./GameUtils";
+import {GameLoseAction, GameWinAction} from "./Actions";
 
 export class Game {
     /**
@@ -30,6 +32,13 @@ export class Game {
         EventHandler.attachEventListeners(this);
     }
 
+    private doAutoActions() {
+        if (GameUtils.checkVictory(this.gameState, this.gameState.player)) {
+            this.pushAction(new ActionFrame(new GameWinAction()));
+        } else if (GameUtils.checkVictory(this.gameState, this.gameState.opponent)) {
+            this.pushAction(new ActionFrame(new GameLoseAction()));
+        }
+    }
 
     /**
      * Consumes an ActionFrame and mutates the game state based on the content of the ActionFrame.
@@ -39,6 +48,12 @@ export class Game {
         this.__actionStack.push(frame);
         this.__gameState = frame.payload.mutate(this.__gameState);
 
+        // If the last action was automatic, don't run automatic actions again...
+        if (!this.peekAction()!.payload.isAutoAction) {
+            this.doAutoActions();
+        }
+
+
         //TODO: Once we have a renderer, we won't need this.
         this.updateView();
     }
@@ -47,14 +62,21 @@ export class Game {
      * Removes the current ActionFrame and unmutates the game state.
      */
     public popAction(): void {
-        if (this.__actionStack.length < 1) {
-            return;
+        let keepPopping = true;
+
+        while (keepPopping) {
+            if (this.__actionStack.length < 1) {
+                return;
+            }
+
+            let frame = this.__actionStack[this.__actionStack.length - 1];
+
+            this.__gameState = frame.payload.unmutate(this.__gameState);
+            if (!frame.payload.isAutoAction) {
+                keepPopping = false;
+            }
+            this.__actionStack.pop();
         }
-
-        let frame = this.__actionStack[this.__actionStack.length - 1];
-
-        this.__gameState = frame.payload.unmutate(this.__gameState);
-        this.__actionStack.pop();
 
         // TODO: Once we have a renderer, we won't need this.
         this.updateView()

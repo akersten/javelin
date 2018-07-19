@@ -1,7 +1,8 @@
 import {Game} from "../Game/Game";
 import {GameUtils} from "../Game/GameUtils";
 import {
-    HandReplaceCardAction, PlayerAttackCardEndAction, PlayerAttackCardStartAction, PlayerGuessCardEndAction,
+    HandReplaceCardAction, PlayerAttackCardEndAction, PlayerAttackCardStartAction, PlayerForfeitAction,
+    PlayerGuessCardEndAction,
     PlayerGuessCardStartAction
 } from "../Game/Actions";
 import {ActionFrame, ActionFrameType} from "../Game/ActionFrame";
@@ -24,6 +25,9 @@ export class EventHandler {
         });
         $("#undoButton").on("click", (event) => {
             game.popAction();
+        });
+        $("#forfeitButton").on("click", (event) => {
+           game.pushAction(new ActionFrame(new PlayerForfeitAction(game.gameState.player)));
         });
     }
 

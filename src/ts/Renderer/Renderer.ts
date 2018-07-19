@@ -1,4 +1,4 @@
-import {GameState} from "../Game/GameState";
+import {GameEndResult, GameState} from "../Game/GameState";
 import {MarkupGenerator} from "../Markup/MarkupGenerator";
 
 export class Renderer {
@@ -40,5 +40,22 @@ export class Renderer {
         $playerCardsHidden.append($playerCardsBuilderHidden);
         $opponentCardsVisible.append($opponentCardsBuilderVisible);
         $opponentCardsHidden.append($opponentCardsBuilderHidden);
+
+
+        let $scoreboard = $("#scoreboard");
+        let $victory = $("#victory");
+        let $defeat = $("#defeat");
+
+        if (gameState.gameEndResult === GameEndResult.VICTORY) {
+            $scoreboard.show();
+            $victory.show();
+        } else if (gameState.gameEndResult === GameEndResult.DEFEAT) {
+            $scoreboard.show();
+            $defeat.show();
+        } else {
+            $scoreboard.hide();
+            $victory.hide();
+            $defeat.hide();
+        }
     }
 }
