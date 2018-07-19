@@ -1,6 +1,9 @@
 import {Game} from "../Game/Game";
 import {GameUtils} from "../Game/GameUtils";
-import {HandReplaceCardAction, PlayerGuessCardEndAction, PlayerGuessCardStartAction} from "../Game/Actions";
+import {
+    HandReplaceCardAction, PlayerAttackCardEndAction, PlayerAttackCardStartAction, PlayerGuessCardEndAction,
+    PlayerGuessCardStartAction
+} from "../Game/Actions";
 import {ActionFrame, ActionFrameType} from "../Game/ActionFrame";
 import {Hand} from "../Player/Hand";
 import {Card} from "../Card/Card";
@@ -51,10 +54,17 @@ export class EventHandler {
                 game.pushAction(new ActionFrame(new HandReplaceCardAction(cardHandObj.hand, cardHandObj.card)));
                 break;
             case "attack":
-                alert("TODO: Attack");
+                game.pushAction(new ActionFrame(new PlayerAttackCardStartAction(cardHandObj.hand, cardHandObj.card, game.gameState.player)));
                 break;
             case "attackselect":
-                alert("TODO: Attackselect");
+                    if (typeof lastAction !== "undefined" && lastAction.type === ActionFrameType.PLAYER_ATTACK_CARD_START) {
+                        let lastCard: Card | undefined = lastAction.payload.card;
+                        if (typeof lastCard === "undefined") {
+                            return;
+                        }
+
+                        game.pushAction(new ActionFrame(new PlayerAttackCardEndAction(cardHandObj.hand, cardHandObj.card, game.gameState.player, lastCard)));
+                    }
                 break;
             case "guess":
                 game.pushAction(new ActionFrame(new PlayerGuessCardStartAction(cardHandObj.hand, cardHandObj.card, game.gameState.player)));

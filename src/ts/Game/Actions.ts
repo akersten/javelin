@@ -290,7 +290,7 @@ export class PlayerAttackCardEndAction implements IActionFramePayload {
     }
 
 
-    constructor(hand: Hand, card: Card, player: Player, guessedHigher: boolean, target: Card) {
+    constructor(hand: Hand, card: Card, player: Player, target: Card) {
         this.__hand = hand;
         this.__card = card;
         this.__player = player;
@@ -301,7 +301,7 @@ export class PlayerAttackCardEndAction implements IActionFramePayload {
     public mutate(state: GameState): GameState {
         this.__player.isAttacking = false;
 
-        if (this.__target.compareTo(this.__card) < 0) {
+        if (this.__target.compareTo(this.__card) >= 0) {
             return state;
         }
 
@@ -325,7 +325,7 @@ export class PlayerAttackCardEndAction implements IActionFramePayload {
     }
 
     public unmutate(state: GameState): GameState {
-        this.__player.isGuessing = true;
+        this.__player.isAttacking = true;
 
         if (!this.__removedCard) {
             return state;

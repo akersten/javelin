@@ -75,6 +75,13 @@ export class MarkupGenerator {
                         "data-action": "higher"
                     }).addClass("cardAction").attr("href", "#").append($("<span>").text("H")).append($("<span>").text("igher").addClass("hide-small")));
                 }
+            } else if (gameState.player.isAttacking) {
+                if (!card.isSideways) {
+                    $cardControls = $cardControls.append($("<a>", {
+                        "data-card-id": card.id,
+                        "data-action": "attackselect"
+                    }).addClass("cardAction").attr("href", "#").append($("<span>").text("S")).append($("<span>").text("elect").addClass("hide-small")));
+                }
             } else {
                 if (gameState.deck.getSize() > 0) {
                     $cardControls = $cardControls.append($("<a>", {
@@ -85,7 +92,7 @@ export class MarkupGenerator {
             }
         }
 
-        if (!isPlayerCard && !card.isSideways && !gameState.player.isGuessing) {
+        if (!isPlayerCard && !card.isSideways && !gameState.player.isGuessing && !gameState.player.isAttacking) {
             if (card.isVisible) {
                 $cardControls = $cardControls.append($("<a>", {
                     "data-card-id": card.id,
